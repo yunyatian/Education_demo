@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.project.subject.infrastructure.repository.SubjectMapper">
+    <resultMap id="subjectMap" type="com.example.demo.project.subject.domain.SubjectRow">
+        <result property="subId" column="subject_id"/>
+        <result property="name" column="subject_name"/>
+        <result property="teachersId" column="teachers"/>
+    </resultMap>
+
+    <resultMap id="teacherFacultyMap" type="com.example.demo.project.teacher.domain.TeacherFaculty">
+        <result property="teacherId" column="job_id"/>
+        <result property="teacherName" column="name"/>
+    </resultMap>
+
+    <insert id="insertSubject">
+        insert into subjects (subject_id,subject_name,teachers)
+        Value (#{subject.subId},
+               #{subject.name},
+               #{subject.teachersId})
+    </insert>
+
+    <select id="getSubject" resultMap="subjectMap">
+        select * from subjects where subject_id = #{id}
+    </select>
+
+    <select id="selectTeacherFaculty" resultMap="teacherFacultyMap">
+        select job_id,name from teachers where job_id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getSubjectByName" resultMap="subjectMap">
+        select * from subjects where subject_name = #{name}
+    </select>
+
+    <update id="updateSubject">
+        update subjects set teachers = #{ids} where subject_name = #{name}
+    </update>
+
+
+</mapper>

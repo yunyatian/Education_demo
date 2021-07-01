@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.project.teacher.infrastructure.repository.TeacherMapper">
+    <resultMap id="teacherMap" type="com.example.demo.project.teacher.domain.Teacher">
+        <result property="jobId" column="job_id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="entryTime" column="entry_time"/>
+        <result property="subject" column="subject_name"/>
+    </resultMap>
+
+    <insert id="insertTeacher">
+        insert into teachers (job_id,name,sex,age,entry_time,subject_name)
+        value (#{teacher.jobId},
+               #{teacher.name},
+               #{teacher.sex},
+               #{teacher.age},
+               #{teacher.entryTime},
+               #{teacher.subject})
+    </insert>
+
+    <select id="getAllTeacher" resultMap="teacherMap">
+        select * from teachers where 1=1
+    </select>
+<!--支持模糊查询-->
+    <select id="getTeacherBySubject" resultMap="teacherMap">
+        select * from teachers where subject_name like concat ('%',#{subject},'%')
+    </select>
+
+    <select id="getTeacherByID" resultMap="teacherMap">
+        select * from teachers where job_id = #{jobId}
+    </select>
+
+    <update id="UpdateTeacher">
+        update teachers
+        <set>
+            <if test="teacher.name != null and teacher.name != ''">
+                name = #{teacher.name},
+            </if>
+            <if test="teacher.sex != null">
+                sex = #{teacher.sex},
+            </if>
+            <if test="teacher.age != null">
+                age = #{teacher.age},
+            </if>
+            <if test="teacher.entryTime != null">
+                entry_time = #{teacher.entryTime},
+            </if>
+            <if test="teacher.subject != null and teacher.subject != ''">
+                subject_name = #{teacher.subject}
+            </if>
+        </set>
+        where job_id = #{teacher.jobId}
+    </update>
+    <delete id="deleteTeacher">
+        delete from teachers where job_id = #{jobId}
+    </delete>
+</mapper>
