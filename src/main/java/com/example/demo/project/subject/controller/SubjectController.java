@@ -21,11 +21,11 @@ public class SubjectController {
 
     @RequestMapping(
             method = RequestMethod.GET,
-            path = "/get/{id}"
+            path = "/get/{name}"
     )
-    public ResultBody singleSubjectMessage(@PathVariable("id")Integer subjectId){
+    public ResultBody singleSubjectMessage(@PathVariable("name")String subjectName){
         try{
-            return ResultBody.success(subjectRepository.singleSubjectDto(subjectId));
+            return ResultBody.success(subjectRepository.singleSubjectDto(subjectName));
         }catch (Exception e){
             return ResultBody.error(e.getMessage());
         }

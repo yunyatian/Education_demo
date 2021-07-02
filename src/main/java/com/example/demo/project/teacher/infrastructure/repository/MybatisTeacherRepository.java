@@ -52,15 +52,8 @@ public class MybatisTeacherRepository implements TeacherRepository {
             if (subjectRow == null){
                 subjectRow = SubjectRow.builder()
                         .name(teacher.getSubject())
-                        .teachersId(teacher.getJobId())
                         .build();
                 subjectMapper.insertSubject(subjectRow);
-            }else if (subjectRow.getTeachersId() == null || subjectRow.getTeachersId().equals("")){
-                subjectMapper.updateSubject(teacher.getJobId(), teacher.getSubject());
-            }else if (!subjectRow.getTeachersId().contains(teacher.getJobId())){
-                String teacherIds = subjectRow.getTeachersId();
-                teacherIds += ","+teacher.getJobId();
-                subjectMapper.updateSubject(teacherIds,teacher.getSubject());
             }
         }
 

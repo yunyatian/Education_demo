@@ -7,36 +7,27 @@
         <result property="teachersId" column="teachers"/>
     </resultMap>
 
-    <resultMap id="teacherFacultyMap" type="com.example.demo.project.teacher.domain.TeacherFaculty">
-        <result property="teacherId" column="job_id"/>
-        <result property="teacherName" column="name"/>
-    </resultMap>
-
     <insert id="insertSubject">
-        insert into subjects (subject_id,subject_name,teachers)
+        insert into subjects (subject_id,subject_name)
         Value (#{subject.subId},
-               #{subject.name},
-               #{subject.teachersId})
+               #{subject.name})
     </insert>
 
     <select id="getSubject" resultMap="subjectMap">
         select * from subjects where subject_id = #{id}
     </select>
 
-    <select id="selectTeacherFaculty" resultMap="teacherFacultyMap">
-        select job_id,name from teachers where job_id in
-        <foreach collection="ids" item="id" open="(" close=")" separator=",">
-            #{id}
-        </foreach>
-    </select>
+<!--    <select id="selectTeacherFaculty" resultMap="teacherFacultyMap">-->
+<!--        select job_id,name from teachers where job_id in-->
+<!--        <foreach collection="ids" item="id" open="(" close=")" separator=",">-->
+<!--            #{id}-->
+<!--        </foreach>-->
+<!--    </select>-->
 
     <select id="getSubjectByName" resultMap="subjectMap">
         select * from subjects where subject_name = #{name}
     </select>
 
-    <update id="updateSubject">
-        update subjects set teachers = #{ids} where subject_name = #{name}
-    </update>
 
 
 </mapper>

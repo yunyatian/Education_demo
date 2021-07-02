@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class StudentSecurityConfiguration {
-
-
     @Bean
     public StudentRepository studentRepository(StudentRowMapper studentRowMapper, ScoreMessageMapper scoreMessageMapper, TeacherMapper teacherMapper, SubjectMapper subjectMapper){
         return new MybatisStudentRepository(studentRowMapper,scoreMessageMapper,teacherMapper,subjectMapper);

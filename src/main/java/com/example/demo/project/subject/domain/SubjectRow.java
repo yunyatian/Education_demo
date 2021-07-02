@@ -13,5 +13,4 @@ import java.util.List;
 public class SubjectRow {
     private Integer subId;
     private String name;
-    private String teachersId;
 }
