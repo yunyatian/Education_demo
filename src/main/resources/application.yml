@@ -8,6 +8,9 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/project?userUnicode=true&characterEncoding=utf-8&useSSL=false&serverTImezone=UTC
     driverClassName: com.mysql.jdbc.Driver
+#    初次运行时打开注释生成db.sql内的表
+#    initialization-mode: always
+#    schema: classpath:sql/db.sql
 
 #配置mapper文件
 mybatis:
