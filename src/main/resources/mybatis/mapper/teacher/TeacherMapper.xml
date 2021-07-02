@@ -24,8 +24,12 @@
         select * from teachers where 1=1
     </select>
 <!--支持模糊查询-->
-    <select id="getTeacherBySubject" resultMap="teacherMap">
+    <select id="fuzzyGetTeacherBySubject" resultMap="teacherMap">
         select * from teachers where subject_name like concat ('%',#{subject},'%')
+    </select>
+
+    <select id="preciseGetTeacherBySubject" resultMap="teacherMap">
+        select * from teachers where subject_name = #{subject}
     </select>
 
     <select id="getTeacherByID" resultMap="teacherMap">

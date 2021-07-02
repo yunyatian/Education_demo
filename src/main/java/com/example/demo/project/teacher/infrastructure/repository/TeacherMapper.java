@@ -15,7 +15,9 @@ public interface TeacherMapper {
 
     Teacher getTeacherByID(@Param("jobId") int jobId);
 
-    List<Teacher> getTeacherBySubject(@Param("subject") String subject);
+    List<Teacher> fuzzyGetTeacherBySubject(@Param("subject") String subject);
+
+    List<Teacher> preciseGetTeacherBySubject(@Param("subject") String subject);
 
     List<Teacher> getAllTeacher();
 

@@ -33,7 +33,7 @@ public class MybatisTeacherRepository implements TeacherRepository {
     @Override
     public IPage<Teacher> getTeacherBySubject(String subjectName, Integer pageNum, Integer pageSize) {
         IPage<Teacher> page = new Page<>();
-        List<Teacher> teachers = teacherMapper.getTeacherBySubject(subjectName);
+        List<Teacher> teachers = teacherMapper.fuzzyGetTeacherBySubject(subjectName);
         page.setTotal(teachers.size());
         page.setRecords(teachers.stream().skip((pageNum-1)*pageSize).limit(pageSize).collect(Collectors.toList()));
         return page;

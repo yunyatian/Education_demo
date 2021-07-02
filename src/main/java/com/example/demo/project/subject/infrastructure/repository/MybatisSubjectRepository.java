@@ -18,7 +18,7 @@ public class MybatisSubjectRepository implements SubjectRepository{
 
     @Override
     public List<Teacher> singleSubjectDto(String subject) {
-        return teacherMapper.getTeacherBySubject(subject);
+        return teacherMapper.preciseGetTeacherBySubject(subject);
     }
 
 }
