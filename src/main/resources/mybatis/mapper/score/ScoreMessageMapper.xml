@@ -12,6 +12,13 @@
         <result property="period" column="period"/>
     </resultMap>
 
+    <resultMap id="rankScoreMap" type="com.example.demo.project.score.domain.ScoresRankingDto">
+        <result property="studentId" column="stu_id"/>
+        <result property="studentName" column="stu_name"/>
+        <result property="sumScore" column="sumScore"/>
+        <result property="period" column="period"/>
+    </resultMap>
+
     <insert id="insertScore">
         insert into score_message (stu_id,stu_name,sub_id,sub_name,teacher_id,teacher_name,score,period)
         Value (#{score.studentId},
@@ -41,5 +48,14 @@
         </if>
     </select>
 
+    <select id="getAverageScore" resultType="Integer">
+        select AVG(score) from score_message where sub_name = #{score.subject}
+                                                    and #{score.period} like concat (period,'%')
+    </select>
+
+    <select id="rankScore" resultMap="rankScoreMap">
+        select stu_id,stu_name, SUM(score) as sumScore,period from score_message where #{score.period} like concat (period,'%')
+                                        GROUP BY stu_name,stu_id,period ORDER BY sumScore DESC
+    </select>
 
 </mapper>
